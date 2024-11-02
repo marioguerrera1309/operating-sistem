@@ -1,0 +1,11 @@
+Scrivere un programma che implementi un servizio d’informazione tra 4 processi P1, P2, P3 e P4, utilizzando una coda di messaggi.
+
+P1, ciclicamente, legge una stringa da tastiera e la invia in modo alternato ai processi P2, P3 e P4 (ossia, legge una stringa da tastiera e la invia a P2, poi legge un’altra stringa e la invia a P3, legge un’altra stringa e la invia a P4, e così via ricominciando da P2). 
+
+Se viene inserita la stringa “ESCI”, P1 la invia a tutti i processi e dopo termina.
+
+I processi P2, P3 e P4 ricevono ciclicamente le stringhe e le stampano a video. Se ricevono la stringa “ESCI” terminano.
+
+N.B. I PROCESSI NON DEVONO AVERE RELAZIONI DI PARENTELA TRA LORO.
+
+Utilizzare il campo mtype della coda di messaggi per inviare i messaggi al processo desiderato. In particolare: P2 dovrà ricevere i messaggi con mtype = 1, P3 quelli con mtype = 2  e P4 quelli con mtype=3.
