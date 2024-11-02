@@ -1,0 +1,94 @@
+Compilazione: gcc -o nome nome.c
+Esecuzione: ./nome
+touch crea un file
+nano modifica file
+man <nomeprocesso> info comando
+cd <directory> cambia directory
+pwd stampa la directory corrente
+whoami visuallizza nome utente
+who restituisce tutti gli utenti loggati
+ls visualizza tutti i file all' interno di una directory
+
+directory: 
+	r -> permesso di listare
+	w -> permesso di creare cancecellare file
+	x -> permesso di cercare al suo interno (non permette di accedere ai file al suo interno)
+file:
+	r -> lettura 
+	w -> scrittura
+	x -> esecuzione
+
+chmod [ugoa] [+-=] [wrx] cambia i permessi degli utenti
+	u: proprietario (user)
+	g: gruppo (group)
+	o: altri (other) 
+	a: tutti (all)
+	+: aggiunge i permessi
+	-: rimuove i permessi
+	=: reimposta tuti i permessi
+
+rm <file> elimina dal disco il file
+rm -r <directory> elimina una directory e tutti i suoi file
+cp <nomefiledacopiare> <destinazione> copia
+mv <nomefiledacopiare> <destinazione> sposta
+mv <file1> <file2> rinomina file1 in file2
+cat <nomefile> visualizza contenuto file
+ps visualizza i processi attivi
+grep <testo> <file> cerca testo in file
+grep -r <testo> <directory> cerca testo nella directory
+history visualizza gli ultimi comandi ( !num )
+dmesg visualizza messaggi del kernel
+df visualizza chi usa il disco rigido
+history | grep sudo : standard output come standard input di un altro comando 
+echo "3/2" | bc -l stampa il risultato su standard output
+tar cvf prog.tar * mette tutta la directory in prog.tar
+tar ztvf prog.tar visualizza prog.tar
+ls -l > lista.txt mette l'output di ls -l nel file lista e se esiste lo sovrascrive
+ls -l >> lista.txt se lista.txt esiste l' output lo mette alla fine del file
+mount /dev/tipo_device /mnt/directory_device monta i dispositivi esterni
+Creare un file bash nomefile.sh
+	#!/bin/bash
+	<comandi>	
+	<comandi>
+Eseguire file bash: ./nomefile.sh
+Per creare un comando con il file
+man signal.h
+Ctrl-C: sigint
+Ctrl-\: siquit
+Ctrl-Z: sigstop
+kill -l: visualizza tutti i sign di kill
+kill(getppid(), SIGALARM);
+	se pid>0: invia sig al processo pid
+	se pid=0: invia sig ai processi di tutto il gruppo
+	se pid=-1:
+		se è superuser: invia sig a tutti tranne 0 e 1
+		altrimenti: invia sig a tutti quelli che può mandare
+alarm(10); restituisce il numero di secondi rimanenti all' invio dell' allarme, fra 10 secondi invia a me stesso SIGALRM
+sigemptyset(): inizializza una maschera di segnali vuota
+sigfillset(): inizializza una maschera di segnali piena
+sigaddset() e sigdelset(): aggiunge (add) o rimuove (del) il segnale signum
+dalla maschera
+sigismember(): testa l’appartenenza di un segnale alla maschera 
+int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+                          void *(*start_routine) (void *), void *arg);
+const pthread_attr_t *attr;
+	x=pthread_attr_init(*attr);
+	x=pthread_attr_setdetachstate(*attr, PTHREAD_CREATE_JOINABLE);
+	x=pthread_attr_setdetachstate(*attr, PTHREAD_CREATE_DETACHED);
+		x==0 -> tutto ok x!=0 -> fallito
+La visione dello stato di locked o unlocked e, se unlocked, il settaggio a locked avviene in modo atomico 
+pthread_mutex_t mutex;
+pthread_mutexattr_t *attr
+x=pthread_mutex_init(&mutex, *attr);
+int pthread_mutexattr_settype(pthread_mutexattr_t *attr, int type);
+int pthread_mutexattr_gettype(const pthread_mutexattr_t *attr, int *type);
+type può assumere il valore di una delle costanti intere:
+	• PTHREAD_MUTEX_ERRORCHECK (se un thread tenta un nuovo lock su un mutex che ha già acquisito, o in caso di
+unlock inappropriati, l’operazione fa ritorno con errore),...
+	• PTHREAD_MUTEX_RECURSIVE (in caso di lock multipli di uno stesso thread, il mutex implementa il conteggio dei lock
+per evitare il deadlock, e in caso di unlock inappropriati, l’operazione fa ritorno con errore)
+	• PTHREAD_MUTEX_DEFAULT (in caso di unlock inappropriati o di lock multipli da uno stesso thread il comportamento è
+undefined)
+	• PTHREAD_MUTEX_NORMAL (non evita il deadlock in caso di lock multipli da uno stesso thread, in caso di unlock
+inappropriati il comportamento è undefined) .
+strncmp("end", stringa, 3)==0 -> i primi 3 caratteri di stringa sono end
